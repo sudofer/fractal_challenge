@@ -1,0 +1,9 @@
+.detail_box {
+  display: flex;
+  flex-direction: row;
+}
+
+.back_home {
+  text-align: left !important;
+  margin: 10px;
+}

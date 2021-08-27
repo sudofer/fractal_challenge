@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import axios from "axios";
+import Places from "./Places";
+import PlaceDetail from "./PlaceDetail";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-function App() {
+const api = "https://610bb7502b6add0017cb3a35.mockapi.io/api/v1/places";
+
+export default function App(params) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get(api).then((res) => setData(res.data));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Route exact path="/">
+          <Places data={data} />
+        </Route>
+        <Route path="/places">
+          <PlaceDetail data={data} />
+        </Route>
+      </div>
+    </Router>
   );
 }
-
-export default App;
